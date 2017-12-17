@@ -1,7 +1,7 @@
 .DS_Store
+*.pyc
 .*swp
-Documentation/
+MANIFEST
 datasets/
-models/
-summaries/
+job/
 __pycache__/
