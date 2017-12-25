@@ -17,8 +17,6 @@ gcloud ml-engine jobs submit training $JOB_ID \
   --job-dir $JOB_DIR\
   --module-name $TRAINER \
   --package-path mult999 \
-  --region europe-west1 \
-  --runtime-version 1.4 \
   --config config.yaml \
   -- \
   --filename-train $DATASETS_DIR/mult999.train \

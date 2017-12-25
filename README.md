@@ -1,10 +1,10 @@
-| dataset | description                                  |
-| ------- |:--------------------------------------------:|
-| mult999 | multiplications, suitable for (NNs and) RNNs |
+| datasets         | description                                  |
+| ---------------- | -------------------------------------------- |
+| mult999.datasets | multiplications, suitable for (NNs and) RNNs |
 
-| model              | description    | type                | accuracy |
-| ------------------ | -------------- | ------------------- | -------: |
-| mult999_first_nn0  | infer 1st char | NN (simple)         |     100% |
-| mult999_second_nn1 | infer 2nd char | NN (1 hidden layer) |          |
+| trainer            | description      | type                | accuracy |
+| ------------------ | ---------------- | ------------------- | -------: |
+| mult999.first.nn0  | predict 1st char | NN (simple)         |     100% |
+| mult999.second.nn1 | predict 2nd char | NN (1 hidden layer) |          |
 
 requirements: Python 3.5, TensorFlow 1.5 (tf-nightly)
