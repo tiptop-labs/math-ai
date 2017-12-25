@@ -43,6 +43,6 @@ def gs_upload(local_filename, filename, mode, content_type = None):
         bucket = client.get_bucket(bucket_name) 
         blob = google.cloud.storage.Blob(path.lstrip("/"), bucket) 
         with open(local_filename, 'rb') as file: 
-            blob.upload_from_file(file, content_type) 
+            blob.upload_from_file(file, content_type = content_type) 
         print("removing {0}".format(local_filename))
         os.remove(local_filename)
