@@ -15,4 +15,6 @@ gcloud ml-engine local train \
   --package-path mult999 \
   -- \
   --filename-train $DATASETS_DIR/mult999.train \
-  --filename-eval $DATASETS_DIR/mult999.eval
+  --filename-eval $DATASETS_DIR/mult999.eval \
+  --summaries 1 \
+  --profiling 1

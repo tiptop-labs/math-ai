@@ -12,4 +12,6 @@ cd `dirname $0`/..
 python -m $TRAINER \
   --job-dir $JOB_DIR \
   --filename-train $DATASETS_DIR/mult999.train \
-  --filename-eval $DATASETS_DIR/mult999.eval
+  --filename-eval $DATASETS_DIR/mult999.eval \
+  --summaries 1 \
+  --profiling 1

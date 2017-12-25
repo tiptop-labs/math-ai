@@ -20,4 +20,6 @@ gcloud ml-engine jobs submit training $JOB_ID \
   --config config.yaml \
   -- \
   --filename-train $DATASETS_DIR/mult999.train \
-  --filename-eval $DATASETS_DIR/mult999.eval
+  --filename-eval $DATASETS_DIR/mult999.eval \
+  --summaries 1 \
+  --profiling 1

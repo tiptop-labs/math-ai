@@ -1,16 +1,13 @@
 import argparse
-import google.cloud.storage
 import math
 import mult999.file_utils
 import os
 import random
 import sys
-import tempfile
 import tensorflow as tf
 
 from mult999.constants import (DATASET_ID, MAX, NUM_EVAL_ELEMENTS,
     NUM_IN_CHARS, NUM_OUT_CHARS, NUM_TRAIN_ELEMENTS)
-from urllib.parse import urlparse
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Create datasets.')
@@ -33,13 +30,9 @@ def write_dataset(filename, num_elements):
     def pad(str, len):
         return str.ljust(len, "_")
 
-    scheme = urlparse(filename)[0]
-    if scheme == "gs":
-        gs_filename = filename
-        _, suffix = os.path.splitext(filename)
-        _, filename = tempfile.mkstemp(suffix = suffix, text = True)
-    print("writing {0}".format(filename))
-    with open(filename, "w") as file:
+    local_filename, filename = mult999.file_utils.gs_download(filename, "w")
+    print("writing {0}".format(local_filename))
+    with open(local_filename, "w") as file:
 
         for _ in range(0, num_elements):
             x1 = random.randint(0, MAX)
@@ -69,16 +62,7 @@ def write_dataset(filename, num_elements):
             file.write("{0}{1}\n".format(
                 pad(in_, NUM_IN_CHARS),
                 pad(out, NUM_OUT_CHARS)))
-    if scheme == "gs":
-        print("copying {0} to {1}".format(filename, gs_filename))
-        _, bucket_name, path, _, _, _ = urlparse(gs_filename)
-        client = google.cloud.storage.Client()
-        bucket = client.get_bucket(bucket_name)
-        blob = google.cloud.storage.Blob(path.lstrip("/"), bucket)
-        with open(filename, 'rb') as file:
-            blob.upload_from_file(file, content_type = "text/plain")
-        print("removing {0}".format(filename))
-        os.remove(filename)
+    mult999.file_utils.gs_upload(local_filename, filename, "w", "text/plain")
 
 def main():
     print("runtime Tensorflow {0}, Python {1}.{2}".format(
