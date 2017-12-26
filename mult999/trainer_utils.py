@@ -71,11 +71,11 @@ def dataset(filename, batch_size, gather, repeat = 1, buffer_size = None):
 
     print("reading {0}".format(filename))
     dataset = (tf.data.TextLineDataset(filename)
-            .batch(batch_size)
-            .map(lines_to_pairs)
-            .map(pairs_to_chars)
-            .map(gather)
-            .map(chars_to_one_hot))
+        .batch(batch_size)
+        .map(lines_to_pairs)
+        .map(pairs_to_chars)
+        .map(gather)
+        .map(chars_to_one_hot))
     if repeat != 1:
         dataset = dataset.repeat(repeat)
     if buffer_size != None:
@@ -176,8 +176,7 @@ def main(model_id, model, batch_size, gather, repeat = 1, buffer_size = None):
         run_options = None
         run_metadata = None
 
-    config = tf.ConfigProto(
-        allow_soft_placement = True, log_device_placement = True)
+    config = tf.ConfigProto(allow_soft_placement = True)
     with tf.Session(config = config) as session:
         session.run(tf.tables_initializer())
         session.run(tf.global_variables_initializer())
