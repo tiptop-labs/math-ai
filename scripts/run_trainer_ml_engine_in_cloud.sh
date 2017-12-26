@@ -2,7 +2,7 @@
 
 TRAINER=mult999.first.nn0.task
 
-NOW=$(date +"%Y%m%d%H%M%S")
+NOW=$(date -u +"%Y%m%d%H%M%S")
 JOB_ID=job_$NOW
 
 BUCKET_NAME=math-ai

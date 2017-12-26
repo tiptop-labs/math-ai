@@ -10,11 +10,11 @@ from mult999.constants import (DATASET_ID, MAX, NUM_EVAL_ELEMENTS,
     NUM_IN_CHARS, NUM_OUT_CHARS, NUM_TRAIN_ELEMENTS)
 
 def parse_args():
-    parser = argparse.ArgumentParser(description='Create datasets.')
-    parser.add_argument('--filename-train',
+    parser = argparse.ArgumentParser(description = "creates datasets")
+    parser.add_argument("--filename-train",
         action = "store", metavar = "filename", required = True,
         help = "training data")
-    parser.add_argument('--filename-eval',
+    parser.add_argument("--filename-eval",
         action = "store", metavar = "filename", required = True,
         help = "evaluation data")
     dict = vars(parser.parse_args())
@@ -73,5 +73,5 @@ def main():
     write_dataset(filename_train, NUM_TRAIN_ELEMENTS)
     write_dataset(filename_eval, NUM_EVAL_ELEMENTS)
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

@@ -10,20 +10,20 @@ from tensorflow.python.client import timeline
 from tensorflow.python.lib.io import file_io
 
 def parse_args():
-    parser = argparse.ArgumentParser(description='Train model.')
-    parser.add_argument('--job-dir',
+    parser = argparse.ArgumentParser(description = "runs trainer")
+    parser.add_argument("--job-dir",
         action = "store", metavar = "dir", required = True,
         help = "training output")
-    parser.add_argument('--filename-train',
+    parser.add_argument("--filename-train",
         action = "store", metavar = "filename", required = True,
         help = "training data")
-    parser.add_argument('--filename-eval',
+    parser.add_argument("--filename-eval",
         action = "store", metavar = "filename", required = True,
         help = "evaluation data")
-    parser.add_argument('--summaries',
+    parser.add_argument("--summaries",
         action = "store", metavar = "step", required = False, type = int,
         help = "summaries for TensorBoard")
-    parser.add_argument('--profiling',
+    parser.add_argument("--profiling",
         action = "store", metavar = "step", required = False, type = int,
         help = "timeline for chrome://tracing")
     dict = vars(parser.parse_args())
@@ -148,7 +148,7 @@ def eval(session, x, y_, accuracy, dataset,
 def main(model_id, model, batch_size, gather, repeat = 1, buffer_size = None):
     print("runtime Tensorflow {0}, Python {1}.{2}".format(
         tf.__version__, sys.version_info[0], sys.version_info[1]));
-    os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+    os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
     job_dir, filename_train, filename_eval, summaries, profiling = parse_args()
     mult999.file_utils.check_dirs([os.path.join(job_dir, ".")])
     check_files([filename_train, filename_eval])
@@ -176,7 +176,9 @@ def main(model_id, model, batch_size, gather, repeat = 1, buffer_size = None):
         run_options = None
         run_metadata = None
 
-    with tf.Session() as session:
+    config = tf.ConfigProto(
+        allow_soft_placement = True, log_device_placement = True)
+    with tf.Session(config = config) as session:
         session.run(tf.tables_initializer())
         session.run(tf.global_variables_initializer())
         train(session, x, y_, train_step, dataset_train, 
@@ -192,11 +194,11 @@ def main(model_id, model, batch_size, gather, repeat = 1, buffer_size = None):
     if profiling != None:
         tl = timeline.Timeline(run_metadata.step_stats)
         ctf = tl.generate_chrome_trace_format()
-        filename_timeline = os.path.join(job_dir, 'timeline.json')
+        filename_timeline = os.path.join(job_dir, "timeline.json")
         print("writing {0}".format(filename_timeline))
         local_filename_timeline, filename_timeline = (
             mult999.file_utils.gs_download(filename_timeline, "w"))
-        with open(local_filename_timeline, 'w') as file:
+        with open(local_filename_timeline, "w") as file:
             file.write(ctf)
         mult999.file_utils.gs_upload(local_filename_timeline, filename_timeline,
             "w", "application/json")
