@@ -3,3 +3,5 @@
 .*swp
 MANIFEST
 __pycache__/
+private/
+venv/
