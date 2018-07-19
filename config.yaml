@@ -1,5 +1,5 @@
 trainingInput:
   pythonVersion: "3.5"
   region: europe-west1
-  runtimeVersion: "1.4"
+  runtimeVersion: "1.8"
   scaleTier: BASIC
