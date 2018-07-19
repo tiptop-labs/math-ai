@@ -6,5 +6,5 @@ setup(
     author = "TipTop Labs",
     author_email = "office@tiptop-labs.com",
     url = "https://github.com/tiptop-labs/math-ai",
-    install_requires = ["google-cloud-storage", "tensorflow>=1.9"],
+    install_requires = ["google-cloud-storage", "tensorflow>=1.9.0"],
     packages = find_packages())
